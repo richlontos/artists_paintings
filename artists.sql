@@ -1,0 +1,1 @@
+SELECT * FROM artists_paintings.artists;

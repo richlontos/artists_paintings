@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- CSS only -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+      crossorigin="anonymous"
+    />
+    <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='all_paintings.css') }}">
+    <style>
+
+
+    </style>
+    <title>Document</title>
+  </head>
+  <body>
+    <input type="checkbox" id="active">
+    <label for="active" class="menu-btn"><span></span></label>
+    <label for="active"></label>
+    <div class="wrapper">
+      <ul>
+        <li><a href="/painting/new">+ painting</a></li>
+        <li><a href="/logout">logout</a></li>
+      </ul>
+    </div>
+    
+    <h1>Welcome {{session['first_name']}}</h1>
+    <div class="tbl-header">
+      <table action="/add_painting" method="post" cellpadding="0" cellspacing="0" border="0">
+        <!-- <a class="btn btn-info" href="/painting/new">add painting</a>
+          <a class="btn btn-info" href="/logout">log out</a> -->
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Posted By</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <div class="tbl-content">
+            <table cellpadding="0" cellspacing="0" border="0">
+              <tbody>
+          
+          {% for painting in paintings %}
+          <tr>
+            <td><a href="/painting/{{painting.id}}">{{painting.name}}</a></td>
+            <td>{{painting.first_name}}</td>
+            <td>
+              {% if session['artist_id'] == painting.artist_id %}
+              <a href='/edit/{{painting.id}}'>edit</a> <a href="/delete/{{painting.id}}"
+              >delete</a
+              >
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </body>
+  </html>
